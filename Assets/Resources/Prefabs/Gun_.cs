@@ -18,7 +18,7 @@ public class Gun_ : MonoBehaviour {
 
 	void shootBullet(){
 		//Debug.Log ("Shoooot");
-		Vector2 bulletforce= new Vector2(transform.position.x * -50f, transform.position.y);
+		Vector2 bulletforce= new Vector2(transform.position.x * -300f, transform.position.y);
 		bullet.GetComponent<Rigidbody2D> ().AddForce (bulletforce);
 
 	}

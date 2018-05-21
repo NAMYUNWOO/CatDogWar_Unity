@@ -409,7 +409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20f7edbbfbcf46df93962afe60a8258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetGen: {fileID: 1770423966}
 --- !u!61 &133784929
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -532,7 +531,23 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114702132702602592, guid: 18ab20096c9d342a0bddfe952c4519cd,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114998780448860750, guid: 18ab20096c9d342a0bddfe952c4519cd,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50124547385635198, guid: 18ab20096c9d342a0bddfe952c4519cd,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 50124547385635198, guid: 18ab20096c9d342a0bddfe952c4519cd, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 18ab20096c9d342a0bddfe952c4519cd, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &175215372 stripped
@@ -1242,7 +1257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20f7edbbfbcf46df93962afe60a8258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetGen: {fileID: 1770423966}
 --- !u!61 &910731433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1783,6 +1797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1455906478}
   - component: {fileID: 1455906479}
+  - component: {fileID: 1455906480}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1817,13 +1832,35 @@ MonoBehaviour:
   isEnd: 0
   PlayerScore: 0
   EnemyScore: 0
-  PlayerReward: 0
-  EnemyReward: 0
+  catReward: 0
+  dogReward: 0
+  catReward_p: 0
+  dogReward_p: 0
   coincnt: 0
   skullcnt: 0
+  GAMETIME: 0
   Wheel: {fileID: 1030675698962452, guid: c02b96250f7364608a3a2e1a0c58bc59, type: 2}
   DogPlayer: {fileID: 680402510}
   CatPlayer: {fileID: 6282870}
+  TIMESCALE: 3
+  scoreAddVec_coin: {x: 0, y: 0}
+  scoreAddVec_skul: {x: 0, y: 0}
+--- !u!114 &1455906480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1455906477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258261eacd4384f64bfe9be0f8c6c333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Connected: 0
+  msg: 
+  newReq: 0
+  TIMESCALE: 0
+  frameNum: 0
 --- !u!1 &1490352058
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,7 +2837,18 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114761939894402030, guid: f8d3b116029a640efb94366c12954252,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114789194732282192, guid: f8d3b116029a640efb94366c12954252,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 50374817483907466, guid: f8d3b116029a640efb94366c12954252, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f8d3b116029a640efb94366c12954252, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &1960242139 stripped
@@ -2866,7 +2914,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!4 &2015482115
 Transform:
