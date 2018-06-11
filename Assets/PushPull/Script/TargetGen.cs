@@ -42,6 +42,7 @@ public class TargetGen : MonoBehaviour {
 
 	}
 
+	/*
 	public void targetUpdate(){
 		if (endGame)
 			return;
@@ -54,10 +55,10 @@ public class TargetGen : MonoBehaviour {
 			makeTarget (false);
 		
 	}
-
+	*/
 
 	void Update(){
-		targetUpdate ();
+		//targetUpdate ();
 	}
 
 }

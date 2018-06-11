@@ -5,31 +5,26 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI; 
 using CnControls;
-using NetMQ;
-using NetMQ.Sockets;
 using System.Runtime.InteropServices;
 
 public class MyGameManager : MonoBehaviour {
-	/*
 	[DllImport("__Internal")]
 	private static extern void AddCurScore(int catScore,int dogScore);
 	[DllImport("__Internal")]
 	private static extern void AddCurScore2(int AvengersScore,int ThanosScore);
 	[DllImport("__Internal")]
 	private static extern void AddRecord(int win,int tie,int lose);
-	*/
+
 
 
 	public bool isEnd = false;
 	public int PlayerScore = 0;
 	public int EnemyScore = 0;
-	public float catReward = 0.0f;
-	public float dogReward = 0.0f;
-    public float catReward_p = 0.0f;
-    public float dogReward_p = 0.0f;
-    public int coincnt;
+	public float PlayerReward = 0;
+	public float EnemyReward = 0;
+	public int coincnt;
 	public int skullcnt;
-	public float GAMETIME;
+	float GAMETIME;
 	bool isSendPost = false;
 	public GameObject Wheel;
 	public GameObject DogPlayer;
@@ -40,10 +35,7 @@ public class MyGameManager : MonoBehaviour {
 	TextMesh enemyScoretxt;
 	string currenturl = "";
 	string gameType = "game";
-	public float TIMESCALE = 10.0f;
-    public Vector2 scoreAddVec_coin = new Vector2(0, 0);
-    public Vector2 scoreAddVec_skul = new Vector2(0, 0);
-    public int GetPlayerScore(){
+	public int GetPlayerScore(){
 		return PlayerScore;
 	}
 	public int GetEnemyScore(){
@@ -71,9 +63,9 @@ public class MyGameManager : MonoBehaviour {
 	void GameTimeElapse(){
 		TextMesh GameTime =  GameObject.Find ("GameTime").GetComponent<TextMesh> ();
 		GameTime.text = string.Format("{0}",GAMETIME.ToString("0"));
-		GAMETIME += Time.deltaTime;
+		GAMETIME -= Time.deltaTime;
 		if (GAMETIME <= 0.1f) {
-			//TimeEndScoreCompare ();
+			TimeEndScoreCompare ();
 			isEnd = true;
 		}
 	}
@@ -82,32 +74,24 @@ public class MyGameManager : MonoBehaviour {
 		int enemyScoreAdd = 0;
 		if (isCoinTarget) {
 			if (isBorderRight) {
-				playerScoreAdd = 2;
-                dogReward_p = 1.0f;
-                catReward_p = -1.0f;
-            } else {
-				enemyScoreAdd = 2;
-                dogReward_p = -1.0f;
-                catReward_p = 1.0f;
-            }
+				playerScoreAdd = 1;
+			} else {
+				enemyScoreAdd = 1;
+			}
 		} else {
 			if (isBorderRight) {
 				playerScoreAdd = -1;
-				enemyScoreAdd = 1;
-                dogReward_p = -1.0f;
-                catReward_p = 1.0f;
-            } else {
-				playerScoreAdd = 1;
+				//enemyScoreAdd = 1;
+			} else {
 				enemyScoreAdd = -1;
-                dogReward_p = 1.0f;
-                catReward_p = -1.0f;
-            }			
+				//playerScoreAdd = 1;
+			}			
 		}
 		PlayerScore += playerScoreAdd;
 		EnemyScore += enemyScoreAdd;
 		playerScoretxt.text = string.Format ("{0}",PlayerScore);
 		enemyScoretxt.text = string.Format ("{0}",EnemyScore);
-		/*
+
 		if (gameType == "InfinityWar"){
 			WWWForm form = new WWWForm();
 			if (isDogGame) {
@@ -142,23 +126,18 @@ public class MyGameManager : MonoBehaviour {
 			}
 			
 		}
-		*/
 			
 
 	}
 
 
 	void Start () {
-		/*
-		int isWheelGame = Random.Range (0, 2);
+		
+		int isWheelGame = Random.Range (0, 5);
 		if (isWheelGame == 1) {
 			Instantiate (Wheel, new Vector2(0.0f,-1.0f), Quaternion.identity);
 		}
-		*/
 
-
-
-		Time.timeScale = TIMESCALE;
 		currenturl = Application.absoluteURL; //"https://infinite-reaches-12370.herokuapp.com/game/cat";//
 		var array = currenturl.Split('/');
 		try{
@@ -179,7 +158,7 @@ public class MyGameManager : MonoBehaviour {
 
 		if (isDogGame) {
 			DogPlayer.GetComponent<ComputerPlayer> ().enabled = false;
-			DogPlayer.GetComponent<Player> ().enabled = true;	
+			DogPlayer.GetComponent<Player> ().enabled = true;
 			if (gameType == "InfinityWar") {
 				Sprite thanosSprite = Resources.Load <Sprite> ("Sprites/thanos0");
 				CatPlayer.GetComponent<Animator> ().enabled = false;
@@ -238,26 +217,12 @@ public class MyGameManager : MonoBehaviour {
 		EnemyScore = 0;
 		coincnt = 0;
 		skullcnt = 0;
-		GAMETIME = 1.0f;
+		GAMETIME = 60;
 	}
-	public void Action(int catAction,int dogAction){
-		
-		bool[] actions_dog = {false,false,false,false};
-		bool[] actions_cat = {false,false,false,false};
-		if (dogAction < 4)
-			actions_dog [dogAction] = true;
-		if (catAction < 4)
-			actions_cat [catAction] = true;
-		DogPlayer.GetComponent<Player_parent> ().Action (actions_dog);
-		CatPlayer.GetComponent<Player_parent> ().Action (actions_cat);
 
-		//print ("postition2 : "+dog_position.ToString() + " and "+cat_position.ToString());
-	}
 	// Update is called once per frame
 	void Update () {
-		
 		if (isEnd) {
-			/*
 			if (!isSendPost) {
 				int win = 0;int tie = 0; int lose = 0;
 				if (PlayerScore == EnemyScore) {tie++;} 
@@ -281,16 +246,14 @@ public class MyGameManager : MonoBehaviour {
 				}
 				isSendPost = true;
 			}
-
 			GameObject.Find ("TargetGen").GetComponent<TargetGen> ().endGame = true;
 			GameObject.Find ("ContinueBtn").GetComponent<Image>().enabled = true;
-			*/
 			PlayerScore = 0;
 			EnemyScore = 0;
 			coincnt = 0;
 			skullcnt = 0;
-			catReward = 0;
-			dogReward = 0;
+			PlayerReward = 0;
+			EnemyReward = 0;
 			GameObject[] gObjs = GameObject.FindGameObjectsWithTag ("TargetCoin");
 			for (int i = 0; i < gObjs.Length; i++) {
 				Destroy (gObjs [i]);
@@ -300,19 +263,14 @@ public class MyGameManager : MonoBehaviour {
 				Destroy (skgObjs [i]);
 			}
 		} else {
+			
 			GameTimeElapse ();
 
 		}
-		if (isEnd) {
-			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
-			isEnd = false;
-		}
-		/*
 		if (isEnd && CnInputManager.GetButtonDown ("Continue")) {
 			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
 			isEnd = false;
 		}
-		*/
 
 	}
 }

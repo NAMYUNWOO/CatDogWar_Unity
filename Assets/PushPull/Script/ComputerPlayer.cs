@@ -24,6 +24,9 @@ public class ComputerPlayer : MonoBehaviour {
 	public bool actionable = true;
 	float ComputerPower = 18f; 
 	int cntFrame = 5;
+	float enoughYdist = 0.05f;
+
+
 	void CollectState()
 	{
 		coinObjs = GameObject.FindGameObjectsWithTag ("TargetCoin");
@@ -33,7 +36,6 @@ public class ComputerPlayer : MonoBehaviour {
 
 	void AgentStep(int action)
 	{	
-
 		CollectState ();
 
 		if (!actionable || (coinObjs.Length<1  && skullObjs.Length < 1)) {
@@ -51,7 +53,7 @@ public class ComputerPlayer : MonoBehaviour {
 
 
 		if (action >= 5) {
-			GetComponent<Animator> ().SetTrigger ("Run");
+			//GetComponent<Animator> ().SetTrigger ("Run");
 			if (action == 5 && playerPos.y < yBorderUp) {
 				transform.localPosition = new Vector2 (playerPos.x, playerPos.y + moveSpeed);
 			}
@@ -61,7 +63,7 @@ public class ComputerPlayer : MonoBehaviour {
 			return;
 
 		}else if (action <= 3) {
-			GetComponent<Animator> ().SetTrigger ("Idle");
+			//GetComponent<Animator> ().SetTrigger ("Idle");
 			GameObject newBullet;
 			gunPos = gameObject.transform.GetChild(0).position;
 
@@ -90,7 +92,7 @@ public class ComputerPlayer : MonoBehaviour {
 			float skulldistX_Abs = Mathf.Abs (skulldistX);
 
 			if (skulldistX_Abs < 2.0f) {
-				if (skulldistY_Abs < 0.05f) {
+				if (skulldistY_Abs < enoughYdist) {
 					newBullet = Instantiate (Push, gunPos, Quaternion.identity);
 					newBullet.GetComponent<Bullet> ().isPlayerBullet = transform.tag == "Player";
 					newBullet.GetComponent<Bullet> ().Power = ComputerPower;
@@ -107,7 +109,7 @@ public class ComputerPlayer : MonoBehaviour {
 				return;
 			} else {
 				/* Below is heuristic action */
-				if (Mathf.Min(coindistY_Abs ,skulldistY_Abs) > 0.05f) {
+				if (Mathf.Min(coindistY_Abs ,skulldistY_Abs) > enoughYdist) {
 
 					if (skulldistY_Abs < coindistY_Abs ) {
 						if (skulldistY < 0.0f) {
@@ -161,6 +163,7 @@ public class ComputerPlayer : MonoBehaviour {
 			//gameObject.transform.localPosition = new Vector2(8.0f, 0f);
 		}
 		CollectState ();
+		GetComponent<Animator> ().SetTrigger ("Run");
 	}
 
 	// Update is called once per frame

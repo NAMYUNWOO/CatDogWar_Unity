@@ -65,12 +65,6 @@ public class Player_parent : MonoBehaviour {
 		if (down && playerPos.y > yBorderDown) {
 			transform.localPosition = new Vector2 (playerPos.x, playerPos.y- moveSpeed);
 		}
-		if (transform.localPosition.y > yBorderUp) {
-			transform.localPosition = new Vector2 (playerPos.x, yBorderUp);
-		}
-		if (transform.localPosition.y < yBorderDown) {
-			transform.localPosition = new Vector2 (playerPos.x, yBorderDown);
-		}
 
 
 
@@ -83,36 +77,6 @@ public class Player_parent : MonoBehaviour {
 		
 	}
 
-	public void Action(params bool[] actions){
-		bool up = actions [0];
-		bool down = actions [1];
-		bool pushKeyDown = actions [2];
-		bool pullKeyDown = actions [3];
-		AnimationChange (true);
-
-		Vector2 playerPos = transform.localPosition;
-		if (up && playerPos.y < yBorderUp) {
-			transform.localPosition = new Vector2 (playerPos.x, playerPos.y+ moveSpeed);
-		}
-		else if (down && playerPos.y > yBorderDown) {
-			transform.localPosition = new Vector2 (playerPos.x, playerPos.y- moveSpeed);
-		}
-
-		if (pushKeyDown || pullKeyDown) {
-			Gun.GetComponent<Gun_> ().Shootable (pushKeyDown, pullKeyDown, false);
-		} else {
-			Gun.GetComponent<Gun_> ().Shootable (false, false, true);
-		}
-		if (transform.localPosition.y > yBorderUp) {
-			transform.localPosition = new Vector2 (playerPos.x, yBorderUp);
-		}
-		if (transform.localPosition.y < yBorderDown) {
-			transform.localPosition = new Vector2 (playerPos.x, yBorderDown);
-		}
-
-		//print ("positions3 : " + transform.localPosition.ToString ());
-
-	}
 
 
 	void Start () {

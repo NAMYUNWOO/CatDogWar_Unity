@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 94522266}
   m_Layer: 0
   m_Name: MainCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,14 +227,14 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 94522265}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &94522267
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 94522265}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &94522268
 Camera:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 4
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.34320936, g: 0.35929775, b: 0.6764706, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -259,16 +259,16 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 33
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &94522269
@@ -354,7 +354,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 133784926}
-  - component: {fileID: 133784928}
   - component: {fileID: 133784930}
   - component: {fileID: 133784929}
   - component: {fileID: 133784927}
@@ -398,17 +397,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &133784928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 133784925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20f7edbbfbcf46df93962afe60a8258, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &133784929
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -529,22 +517,7 @@ Prefab:
     - target: {fileID: 95760431999715302, guid: 18ab20096c9d342a0bddfe952c4519cd,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114702132702602592, guid: 18ab20096c9d342a0bddfe952c4519cd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114998780448860750, guid: 18ab20096c9d342a0bddfe952c4519cd,
-        type: 2}
-      propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 50124547385635198, guid: 18ab20096c9d342a0bddfe952c4519cd,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 50124547385635198, guid: 18ab20096c9d342a0bddfe952c4519cd, type: 2}
@@ -1136,7 +1109,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 771588589}
-  - component: {fileID: 771588590}
   m_Layer: 0
   m_Name: Game1
   m_TagString: game1
@@ -1165,25 +1137,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &771588590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771588588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805b136e80fdb4a9d93ff7587eeb5a7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  Enemy: {fileID: 0}
-  BorderLeft: {fileID: 133784925}
-  BorderUp: {fileID: 1511434999}
-  BorderRight: {fileID: 910731429}
-  BorderDown: {fileID: 695172597}
-  TargetGen: {fileID: 1770423966}
-  GameManager: {fileID: 1455906477}
 --- !u!224 &828442138 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22450750, guid: 943b21e331e945146beb63726ff855df,
@@ -1202,7 +1155,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 910731430}
-  - component: {fileID: 910731432}
   - component: {fileID: 910731434}
   - component: {fileID: 910731433}
   - component: {fileID: 910731431}
@@ -1246,17 +1198,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &910731432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 910731429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20f7edbbfbcf46df93962afe60a8258, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &910731433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1797,7 +1738,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1455906478}
   - component: {fileID: 1455906479}
-  - component: {fileID: 1455906480}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1832,35 +1772,13 @@ MonoBehaviour:
   isEnd: 0
   PlayerScore: 0
   EnemyScore: 0
-  catReward: 0
-  dogReward: 0
-  catReward_p: 0
-  dogReward_p: 0
+  PlayerReward: 0
+  EnemyReward: 0
   coincnt: 0
   skullcnt: 0
-  GAMETIME: 0
   Wheel: {fileID: 1030675698962452, guid: c02b96250f7364608a3a2e1a0c58bc59, type: 2}
   DogPlayer: {fileID: 680402510}
   CatPlayer: {fileID: 6282870}
-  TIMESCALE: 3
-  scoreAddVec_coin: {x: 0, y: 0}
-  scoreAddVec_skul: {x: 0, y: 0}
---- !u!114 &1455906480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1455906477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 258261eacd4384f64bfe9be0f8c6c333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Connected: 0
-  msg: 
-  newReq: 0
-  TIMESCALE: 0
-  frameNum: 0
 --- !u!1 &1490352058
 GameObject:
   m_ObjectHideFlags: 0
@@ -2840,11 +2758,6 @@ Prefab:
     - target: {fileID: 114761939894402030, guid: f8d3b116029a640efb94366c12954252,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114789194732282192, guid: f8d3b116029a640efb94366c12954252,
-        type: 2}
-      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -2906,7 +2819,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6db6248000b70400f9d937f45000002f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5799f4f0beb374b5dbfd0a12b28003fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2914,7 +2827,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &2015482115
 Transform:

@@ -5,61 +5,70 @@ public class TargetCoinAndSkull : MonoBehaviour {
 
 	public bool isDeadTarget = false;
 	public Vector2 ScoreBoardtoGo;
-
+	TargetGen targetGen;
+	MyGameManager mgm;
 	void OnCollisionEnter2D(Collision2D collider){
-		if ((collider.gameObject.tag == "Player" || collider.gameObject.tag == "Enemy" || collider.gameObject.tag == "BorderEnd")&& gameObject.tag == "TargetCoin") {
-			/*
-			if (gameObject.tag == "TargetSkull") {
-				Vector2 vel = gameObject.GetComponent<Rigidbody2D> ().velocity;
-				GetComponent<Rigidbody2D> ().velocity = new Vector2 (vel.x * -1f, vel.y * -1f);
-			} else {
-			*/
-			/*
-			if(collider.gameObject.tag == "Enemy")
+		bool isCoin = gameObject.tag == "TargetCoin";
+		bool isSkul = gameObject.tag == "TargetSkull";
+		bool isPlayer = collider.gameObject.tag == "Player";
+		bool isEnemy = collider.gameObject.tag == "Enemy";
+		bool isBorderEnd = collider.gameObject.tag == "BorderEnd";
+		bool isBorderLeft = collider.gameObject.name == "BorderLeft";
+		bool isBorderRight = collider.gameObject.name == "BorderRight";
+		if (isPlayer || isEnemy || isBorderEnd) {
+			
+			if (isSkul && ( isPlayer || isEnemy)) {
+				return;
+			}
+
+
+			if(isEnemy || collider.gameObject.name == "BorderLeft")
 				ScoreBoardtoGo = GameObject.Find ("EnemyScore").transform.localPosition;
 			isDeadTarget = true;
 			GetComponent<CircleCollider2D> ().enabled = false;
-			*/
+			mgm.ScoreCounter (isCoin, isBorderRight || isPlayer);
+			targetGen.makeTarget (isCoin);
 
-			MyGameManager mgm = GameObject.Find ("GameManager").GetComponent<MyGameManager> ();      
-            mgm.ScoreCounter (gameObject.tag == "TargetCoin", gameObject.transform.position.x > 0.0f );
-            mgm.scoreAddVec_coin = gameObject.transform.position;
-            Destroy (gameObject);
-			/*
-			if (gameObject.tag == "TargetCoin")
-				GameObject.Find ("TargetGen").GetComponent<TargetGen> ().makeTarget (true);
-			else
-				GameObject.Find ("TargetGen").GetComponent<TargetGen> ().makeTarget (false);
-
-			*/
-		}
-		if (collider.gameObject.tag == "BorderEnd" && gameObject.tag == "TargetSkull"){
-			
-			MyGameManager mgm = GameObject.Find ("GameManager").GetComponent<MyGameManager> ();
-            mgm.ScoreCounter (gameObject.tag == "TargetCoin", gameObject.transform.position.x > 0.0f);
-            mgm.scoreAddVec_skul = gameObject.transform.position;
-            Destroy (gameObject);
+			if (isCoin) {
+				TakeDamage ("+1");
+			} else {
+				TakeDamage ("-1");
+			}
+             
 		}
 
 	}
+
+	public void TakeDamage(string amount)
+	{
+		
+		FloatingTextController.CreateFloatingText(amount,transform,gameObject.tag == "TargetCoin");
+		//Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
+
+	}
+
 
 	void Start () {
+		mgm = GameObject.Find ("GameManager").GetComponent<MyGameManager> ();
 		ScoreBoardtoGo = GameObject.Find ("PlayerScore").transform.localPosition;
+		targetGen = GameObject.Find ("TargetGen").GetComponent<TargetGen> ();
+		FloatingTextController.Initialize();
 	}
 
+	void destroy_coin_skull() {
+		Destroy (gameObject);
+	}
 	// Update is called once per frame
 	void Update () {
 		if (transform.position.x < -9f || transform.position.x > 9f || transform.position.y > 5f || transform.position.y < -5f)
-			Destroy (gameObject);
-		/*
+			destroy_coin_skull();
 		if (isDeadTarget) {
 			if (Vector3.Distance (transform.position, ScoreBoardtoGo) > 1.0f) {
 				transform.localPosition = Vector2.MoveTowards (transform.position, ScoreBoardtoGo, 1.0f);
 			}else{
-				Destroy (gameObject);
+				destroy_coin_skull();
 			}
 		}
-		*/
 
 	}
 }
