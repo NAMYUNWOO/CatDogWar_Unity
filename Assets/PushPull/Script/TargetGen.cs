@@ -55,10 +55,11 @@ public class TargetGen : MonoBehaviour {
 			makeTarget (false);
 		
 	}
-	*/
+
 
 	void Update(){
-		//targetUpdate ();
+		targetUpdate ();
 	}
+	*/
 
 }

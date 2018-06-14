@@ -61,7 +61,7 @@ AnimationClip:
         tangentMode: 136
       - serializedVersion: 2
         time: 0.41666666
-        value: 30
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -73,7 +73,7 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 0.6666667
-        value: -40
+        value: -160
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -313,7 +313,7 @@ AnimationClip:
         tangentMode: 136
       - serializedVersion: 2
         time: 0.41666666
-        value: 30
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -325,7 +325,7 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 0.6666667
-        value: -40
+        value: -160
         inSlope: 0
         outSlope: 0
         tangentMode: 0

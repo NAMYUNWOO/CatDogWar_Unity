@@ -24,7 +24,7 @@ public class FloatingTextController : MonoBehaviour {
 			instance = Instantiate (popupTextCoin);
 		else
 			instance = Instantiate (popupTextSkul);
-		Vector2 screenPosition = Camera.main.WorldToScreenPoint(new Vector2(location.position.x, location.position.y));
+		Vector2 screenPosition = Camera.main.WorldToScreenPoint(new Vector2(location.position.x+Mathf.Sign (location.position.x)*-1.0f, location.position.y));
 		instance.transform.SetParent (canvas.transform,false);
 		instance.transform.position = screenPosition;
 		instance.SetText (text);

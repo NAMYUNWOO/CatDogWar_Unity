@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour {
 
 	protected void OnTriggerEnter2D(Collider2D collider){
 		
-		if (collider.tag != "Pull" && collider.tag != "Push" && collider.tag != "Border" && collider.tag != "Wheel"){
+		if (collider.tag != "Pull" && collider.tag != "Push" && collider.tag != "Border" && collider.tag != "Wheel" && collider.name != "wave"){
 			if (isPlayerBullet) {
 				GameObject player = GameObject.FindGameObjectWithTag ("Player");
 				player.GetComponent<Player_parent> ().shootok = true;

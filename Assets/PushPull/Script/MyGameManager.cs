@@ -33,6 +33,7 @@ public class MyGameManager : MonoBehaviour {
 	bool isDogGame;
 	TextMesh playerScoretxt;
 	TextMesh enemyScoretxt;
+	TextMesh GameTime;
 	string currenturl = "";
 	string gameType = "game";
 	public int GetPlayerScore(){
@@ -61,7 +62,6 @@ public class MyGameManager : MonoBehaviour {
 	}
 
 	void GameTimeElapse(){
-		TextMesh GameTime =  GameObject.Find ("GameTime").GetComponent<TextMesh> ();
 		GameTime.text = string.Format("{0}",GAMETIME.ToString("0"));
 		GAMETIME -= Time.deltaTime;
 		if (GAMETIME <= 0.1f) {
@@ -143,7 +143,7 @@ public class MyGameManager : MonoBehaviour {
 		try{
 			gameType = array [3];
 		}catch{
-			gameType = "game";//"InfinityWar";
+			gameType = "InfinityWar";//"game";//
 		}
 
 		string baseU = "";
@@ -151,7 +151,7 @@ public class MyGameManager : MonoBehaviour {
 			baseU += array[idx] + "/";
 		}
 		baseUrl = baseU;
-
+		GameTime =  GameObject.Find ("GameTime").GetComponent<TextMesh> ();
 		playerScoretxt =  GameObject.Find ("PlayerScore").GetComponent<TextMesh> ();
 		enemyScoretxt =  GameObject.Find ("EnemyScore").GetComponent<TextMesh> ();
 		isDogGame = currenturl.EndsWith ("dog");

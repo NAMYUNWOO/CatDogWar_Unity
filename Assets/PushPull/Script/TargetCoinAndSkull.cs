@@ -9,31 +9,34 @@ public class TargetCoinAndSkull : MonoBehaviour {
 	MyGameManager mgm;
 	void OnCollisionEnter2D(Collision2D collider){
 		bool isCoin = gameObject.tag == "TargetCoin";
-		bool isSkul = gameObject.tag == "TargetSkull";
 		bool isPlayer = collider.gameObject.tag == "Player";
 		bool isEnemy = collider.gameObject.tag == "Enemy";
 		bool isBorderEnd = collider.gameObject.tag == "BorderEnd";
-		bool isBorderLeft = collider.gameObject.name == "BorderLeft";
 		bool isBorderRight = collider.gameObject.name == "BorderRight";
 		if (isPlayer || isEnemy || isBorderEnd) {
 			
-			if (isSkul && ( isPlayer || isEnemy)) {
+			if (!isCoin && ( isPlayer || isEnemy)) {
 				return;
 			}
 
 
 			if(isEnemy || collider.gameObject.name == "BorderLeft")
 				ScoreBoardtoGo = GameObject.Find ("EnemyScore").transform.localPosition;
+			/*
 			isDeadTarget = true;
 			GetComponent<CircleCollider2D> ().enabled = false;
+			*/
 			mgm.ScoreCounter (isCoin, isBorderRight || isPlayer);
-			targetGen.makeTarget (isCoin);
+			//bool success = targetGen.makeTarget (isCoin);
+			
 
 			if (isCoin) {
 				TakeDamage ("+1");
 			} else {
 				TakeDamage ("-1");
 			}
+			Destroy (gameObject);
+			targetGen.makeTarget (isCoin);
              
 		}
 
@@ -59,6 +62,7 @@ public class TargetCoinAndSkull : MonoBehaviour {
 		Destroy (gameObject);
 	}
 	// Update is called once per frame
+	/*
 	void Update () {
 		if (transform.position.x < -9f || transform.position.x > 9f || transform.position.y > 5f || transform.position.y < -5f)
 			destroy_coin_skull();
@@ -71,4 +75,5 @@ public class TargetCoinAndSkull : MonoBehaviour {
 		}
 
 	}
+	*/
 }

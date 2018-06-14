@@ -897,7 +897,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22409286, guid: 81acfa4b78dfa47499a6c2fd6e521ebd, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 64
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 22409286, guid: 81acfa4b78dfa47499a6c2fd6e521ebd, type: 2}
       propertyPath: m_AnchorMin.x
@@ -2266,11 +2266,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22450750, guid: 943b21e331e945146beb63726ff855df, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 250
+      value: 609.3
       objectReference: {fileID: 0}
     - target: {fileID: 22450750, guid: 943b21e331e945146beb63726ff855df, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 243
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 22450750, guid: 943b21e331e945146beb63726ff855df, type: 2}
       propertyPath: m_AnchorMin.x
@@ -2873,7 +2873,7 @@ Camera:
   m_GameObject: {fileID: 2094248923}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.909804, g: 0.9058824, b: 0.909804, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
