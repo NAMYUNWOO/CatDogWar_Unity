@@ -7,7 +7,6 @@ public class TargetGen : MonoBehaviour {
 	public GameObject skull;
 	int targetCoinLen;
 	int targetSkullLen;
-	public bool endGame = false;
 	public bool isInfinityWar = false;
 	Color32[] color32 = {new Color32(224, 135, 66, 255),new Color32(132, 67, 237, 255),new Color32(115, 238, 80, 255),new Color32(71, 148, 238, 255),new Color32(242, 240, 89, 255),new Color32(220, 65, 53, 255)};
 	void Start () {
@@ -41,25 +40,6 @@ public class TargetGen : MonoBehaviour {
 		obj.GetComponent<Rigidbody2D> ().AddForce(new Vector2 (x*10f,y[yidx]));
 
 	}
-
-	/*
-	public void targetUpdate(){
-		if (endGame)
-			return;
-		int coinAmt = GameObject.FindGameObjectsWithTag ("TargetCoin").Length;
-		int skullAmt = GameObject.FindGameObjectsWithTag ("TargetSkull").Length;
-
-		if (coinAmt < 1)
-			makeTarget (true);
-		if (skullAmt < 1)
-			makeTarget (false);
 		
-	}
-
-
-	void Update(){
-		targetUpdate ();
-	}
-	*/
 
 }

@@ -18,38 +18,34 @@ public class MyGameManager : MonoBehaviour {
 
 
 	public bool isEnd = false;
-	public int PlayerScore = 0;
-	public int EnemyScore = 0;
-	public float PlayerReward = 0;
-	public float EnemyReward = 0;
-	public int coincnt;
-	public int skullcnt;
+	public int DogScore = 0;
+	public int CatScore = 0;
 	float GAMETIME;
 	bool isSendPost = false;
 	public GameObject Wheel;
-	public GameObject DogPlayer;
-	public GameObject CatPlayer;
+	public GameObject Dog;
+	public GameObject Cat;
 	string baseUrl = "";
 	bool isDogGame;
-	TextMesh playerScoretxt;
-	TextMesh enemyScoretxt;
+	TextMesh dogScoretxt;
+	TextMesh catScoretxt;
 	TextMesh GameTime;
 	string currenturl = "";
 	string gameType = "game";
-	public int GetPlayerScore(){
-		return PlayerScore;
+	public int GetDogScore(){
+		return DogScore;
 	}
-	public int GetEnemyScore(){
-		return EnemyScore;
+	public int GetCatScore(){
+		return CatScore;
 	}
 	void TimeEndScoreCompare(){
-		if (PlayerScore > EnemyScore) {
+		if (DogScore > CatScore) {
 			if (isDogGame) {
 				GameObject.Find ("Win").GetComponent<MeshRenderer> ().enabled = true;
 			} else {
 				GameObject.Find ("Lose").GetComponent<MeshRenderer> ().enabled = true;
 			}
-		}else if (PlayerScore < EnemyScore){
+		}else if (DogScore < CatScore){
 			if (isDogGame) {
 				GameObject.Find ("Lose").GetComponent<MeshRenderer> ().enabled = true;
 			} else {
@@ -70,44 +66,44 @@ public class MyGameManager : MonoBehaviour {
 		}
 	}
 	public void ScoreCounter(bool isCoinTarget,bool isBorderRight){
-		int playerScoreAdd = 0;
-		int enemyScoreAdd = 0;
+		int dogScoreAdd = 0;
+		int catScoreAdd = 0;
 		if (isCoinTarget) {
 			if (isBorderRight) {
-				playerScoreAdd = 1;
+				dogScoreAdd = 1;
 			} else {
-				enemyScoreAdd = 1;
+				catScoreAdd = 1;
 			}
 		} else {
 			if (isBorderRight) {
-				playerScoreAdd = -1;
-				//enemyScoreAdd = 1;
+				dogScoreAdd = -1;
+				//catScoreAdd = 1;
 			} else {
-				enemyScoreAdd = -1;
-				//playerScoreAdd = 1;
+				catScoreAdd = -1;
+				//dogScoreAdd = 1;
 			}			
 		}
-		PlayerScore += playerScoreAdd;
-		EnemyScore += enemyScoreAdd;
-		playerScoretxt.text = string.Format ("{0}",PlayerScore);
-		enemyScoretxt.text = string.Format ("{0}",EnemyScore);
+		DogScore += dogScoreAdd;
+		CatScore += catScoreAdd;
+		dogScoretxt.text = string.Format ("{0}",DogScore);
+		catScoretxt.text = string.Format ("{0}",CatScore);
 
 		if (gameType == "InfinityWar"){
 			WWWForm form = new WWWForm();
 			if (isDogGame) {
-				form.AddField ("AvengersScore", playerScoreAdd);
-				form.AddField ("ThanosScore", enemyScoreAdd);
+				form.AddField ("AvengersScore", dogScoreAdd);
+				form.AddField ("ThanosScore", catScoreAdd);
 			} else {
-				form.AddField ("AvengersScore", enemyScoreAdd);
-				form.AddField ("ThanosScore", playerScoreAdd);
+				form.AddField ("AvengersScore", catScoreAdd);
+				form.AddField ("ThanosScore", dogScoreAdd);
 			}
 			UnityWebRequest www = UnityWebRequest.Post (baseUrl + "scoreAdd_Avengers", form);
 			www.SendWebRequest ();
 			try{
 				if(isDogGame){
-					AddCurScore2(PlayerScore,EnemyScore);
+					AddCurScore2(DogScore,CatScore);
 				}else{
-					AddCurScore2(EnemyScore,PlayerScore);
+					AddCurScore2(CatScore,DogScore);
 				}
 			}catch{
 
@@ -115,12 +111,12 @@ public class MyGameManager : MonoBehaviour {
 		}else{
 
 			WWWForm form = new WWWForm();
-			form.AddField ("DogScore",playerScoreAdd);
-			form.AddField ("CatScore",enemyScoreAdd);
+			form.AddField ("DogScore",dogScoreAdd);
+			form.AddField ("CatScore",catScoreAdd);
 			UnityWebRequest www = UnityWebRequest.Post (baseUrl + "scoreAdd", form);
 			www.SendWebRequest ();
 			try{
-				AddCurScore(EnemyScore,PlayerScore);
+				AddCurScore(CatScore,DogScore);
 			}catch{
 				
 			}
@@ -152,35 +148,33 @@ public class MyGameManager : MonoBehaviour {
 		}
 		baseUrl = baseU;
 		GameTime =  GameObject.Find ("GameTime").GetComponent<TextMesh> ();
-		playerScoretxt =  GameObject.Find ("PlayerScore").GetComponent<TextMesh> ();
-		enemyScoretxt =  GameObject.Find ("EnemyScore").GetComponent<TextMesh> ();
+		dogScoretxt =  GameObject.Find ("DogScore").GetComponent<TextMesh> ();
+		catScoretxt =  GameObject.Find ("CatScore").GetComponent<TextMesh> ();
 		isDogGame = currenturl.EndsWith ("dog");
 
 		if (isDogGame) {
-			DogPlayer.GetComponent<ComputerPlayer> ().enabled = false;
-			DogPlayer.GetComponent<Player> ().enabled = true;
+			Dog.GetComponent<ComputerPlayer> ().enabled = false;
+			Dog.GetComponent<Dog> ().enabled = true;
+			Cat.GetComponent<ComputerPlayer> ().enabled = true;
+			Cat.GetComponent<Dog> ().enabled = false;
 			if (gameType == "InfinityWar") {
 				Sprite thanosSprite = Resources.Load <Sprite> ("Sprites/thanos0");
-				CatPlayer.GetComponent<Animator> ().enabled = false;
-				CatPlayer.GetComponent<SpriteRenderer> ().sprite = thanosSprite;
+				Cat.GetComponent<Animator> ().enabled = false;
+				Cat.GetComponent<SpriteRenderer> ().sprite = thanosSprite;
 			}
 
 		} else {
-			CatPlayer.GetComponent<ComputerPlayer> ().enabled = false;
-			CatPlayer.GetComponent<Enemy> ().enabled = true;
+			Cat.GetComponent<ComputerPlayer> ().enabled = false;
+			Cat.GetComponent<Cat> ().enabled = true;
+			Dog.GetComponent<ComputerPlayer> ().enabled = true;
+			Dog.GetComponent<Dog> ().enabled = false;
 			if (gameType == "InfinityWar") {
 				Sprite thanosSprite = Resources.Load <Sprite> ("Sprites/thanos1");
-				DogPlayer.GetComponent<Animator> ().enabled = false;
-				DogPlayer.GetComponent<SpriteRenderer> ().sprite = thanosSprite;
+				Dog.GetComponent<Animator> ().enabled = false;
+				Dog.GetComponent<SpriteRenderer> ().sprite = thanosSprite;
 
 			}
-			/* below for mobile */
 
-			/*
-			Sprite newSprite =  Resources.Load <Sprite>("Sprites/Pullbtn_2");
-			GameObject.Find ("ButtonPull").GetComponent<Image>().sprite = newSprite;
-
-			*/
 		}
 		if (gameType == "InfinityWar") {
 			Sprite stoneSprite = Resources.Load <Sprite> ("Sprites/gem0");
@@ -213,10 +207,8 @@ public class MyGameManager : MonoBehaviour {
 
 		}
 
-		PlayerScore = 0;
-		EnemyScore = 0;
-		coincnt = 0;
-		skullcnt = 0;
+		DogScore = 0;
+		CatScore = 0;
 		GAMETIME = 60;
 	}
 
@@ -225,8 +217,8 @@ public class MyGameManager : MonoBehaviour {
 		if (isEnd) {
 			if (!isSendPost) {
 				int win = 0;int tie = 0; int lose = 0;
-				if (PlayerScore == EnemyScore) {tie++;} 
-				else if (PlayerScore > EnemyScore)
+				if (DogScore == CatScore) {tie++;} 
+				else if (DogScore > CatScore)
 				{
 					if (isDogGame) {win++;}
 					else {lose++;}
@@ -246,14 +238,9 @@ public class MyGameManager : MonoBehaviour {
 				}
 				isSendPost = true;
 			}
-			GameObject.Find ("TargetGen").GetComponent<TargetGen> ().endGame = true;
 			GameObject.Find ("ContinueBtn").GetComponent<Image>().enabled = true;
-			PlayerScore = 0;
-			EnemyScore = 0;
-			coincnt = 0;
-			skullcnt = 0;
-			PlayerReward = 0;
-			EnemyReward = 0;
+			DogScore = 0;
+			CatScore = 0;
 			GameObject[] gObjs = GameObject.FindGameObjectsWithTag ("TargetCoin");
 			for (int i = 0; i < gObjs.Length; i++) {
 				Destroy (gObjs [i]);

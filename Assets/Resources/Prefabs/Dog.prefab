@@ -19,15 +19,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4828398426970796}
-  - component: {fileID: 114998780448860750}
-  - component: {fileID: 114702132702602592}
+  - component: {fileID: 114662340677317298}
+  - component: {fileID: 114200679494401166}
   - component: {fileID: 212125647215203094}
   - component: {fileID: 70459681726825542}
   - component: {fileID: 95760431999715302}
-  - component: {fileID: 50124547385635198}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: Player
+  m_Name: Dog
+  m_TagString: Dog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,33 +68,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1028253293532370}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: -0.4499998}
+  m_LocalPosition: {x: 8, y: -1, z: -0.4499998}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 4673236199122520}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50124547385635198
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028253293532370}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1000
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 5
 --- !u!70 &70459681726825542
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -105,7 +84,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.099442005, y: -0.004942417}
@@ -118,7 +97,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1028253293532370}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: dad42bcd3ee304683ae2a64b26a897c3, type: 2}
   m_CullingMode: 0
@@ -128,20 +107,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114212290826884788
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1298192500273320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9606b285842943f998f6a46000c3ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Push: {fileID: 1745653775247612, guid: 3c687517dd5b747e3b905b205c0f73a8, type: 2}
-  Pull: {fileID: 1093555056899776, guid: 9db58289b68c24729b086fff0564167c, type: 2}
---- !u!114 &114702132702602592
+--- !u!114 &114200679494401166
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -156,19 +122,31 @@ MonoBehaviour:
   Push: {fileID: 1745653775247612, guid: 3c687517dd5b747e3b905b205c0f73a8, type: 2}
   Pull: {fileID: 1093555056899776, guid: 9db58289b68c24729b086fff0564167c, type: 2}
   actionable: 1
---- !u!114 &114998780448860750
+--- !u!114 &114212290826884788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298192500273320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9606b285842943f998f6a46000c3ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Push: {fileID: 1745653775247612, guid: 3c687517dd5b747e3b905b205c0f73a8, type: 2}
+  Pull: {fileID: 1093555056899776, guid: 9db58289b68c24729b086fff0564167c, type: 2}
+--- !u!114 &114662340677317298
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1028253293532370}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5873f5737c66f45b7862b508c2e6dc0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Gun: {fileID: 1298192500273320}
-  shootok: 1
 --- !u!212 &212125647215203094
 SpriteRenderer:
   m_ObjectHideFlags: 1

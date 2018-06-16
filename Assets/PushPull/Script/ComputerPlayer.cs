@@ -7,7 +7,7 @@ public class ComputerPlayer : MonoBehaviour {
 
 
 
-	float moveSpeed = 0.2f;
+	float moveSpeed = 0.15f;
 	float invertMult;
 	public bool invertX;
 	Vector2 gunPos;
@@ -17,14 +17,13 @@ public class ComputerPlayer : MonoBehaviour {
 	float xBorderRight = 8.2f;
 	float yBorderUp = 4.4f;
 	float yBorderDown = -2.4f;
-	float[] target_Coin_Skull = new float[8];
 	int TARGETNUM = 2;
 	GameObject[] coinObjs;
 	GameObject[] skullObjs;
 	public bool actionable = true;
 	float ComputerPower = 18f; 
 	int cntFrame = 5;
-	float enoughYdist = 0.05f;
+	float enoughYdist = 0.5f;
 
 
 	void CollectState()
@@ -34,7 +33,7 @@ public class ComputerPlayer : MonoBehaviour {
 
 	}
 
-	void AgentStep(int action)
+	void AgentStep()
 	{	
 		CollectState ();
 
@@ -46,109 +45,46 @@ public class ComputerPlayer : MonoBehaviour {
 
 
 		transform.GetChild (0).GetComponent<SpriteRenderer> ().enabled = false;
-		Vector2 playerPos = transform.position;
+		Vector2 computerPos = transform.position;
 
-		//float moveX = 0.0f;
-
-
-
-		if (action >= 5) {
-			//GetComponent<Animator> ().SetTrigger ("Run");
-			if (action == 5 && playerPos.y < yBorderUp) {
-				transform.localPosition = new Vector2 (playerPos.x, playerPos.y + moveSpeed);
+		GameObject coin = coinObjs [0];
+		GameObject skull = skullObjs [0];
+		Vector2 coinpos = coin.transform.position;
+		Vector2 skullpos = skull.transform.position;
+		float coinDist = Vector2.Distance(computerPos,coinpos);
+		float skullDist = Vector2.Distance(computerPos,skullpos);
+		//float coinDist_y = Mathf.Abs(computerPos.y - coinpos.y);
+		//float skullDist_y = Mathf.Abs(computerPos.y - skullpos.y);
+		if (Mathf.Abs (skullpos.x) > 5.0f) {
+			Vector2 movetopos = new Vector2 (computerPos.x, skullpos.y);
+			transform.localPosition = Vector2.MoveTowards (transform.position, movetopos, moveSpeed);
+			if (Mathf.Abs (skullpos.y - computerPos.y) < enoughYdist ) {
+				gunPos = gameObject.transform.GetChild (0).position;
+				GameObject newBullet = Instantiate (Push, gunPos, Quaternion.identity);
+				newBullet.GetComponent<Bullet> ().Power = ComputerPower;
 			}
-			if (action == 6 && playerPos.y > yBorderDown) {
-				transform.localPosition = new Vector2 (playerPos.x, playerPos.y - moveSpeed);
-			}
-			return;
-
-		}else if (action <= 3) {
-			//GetComponent<Animator> ().SetTrigger ("Idle");
-			GameObject newBullet;
-			gunPos = gameObject.transform.GetChild(0).position;
-
-			float coindistY = 0.0f;
-			float skulldistY = 0.0f;
-			float skulldistX = 0.0f;
-			if (coinObjs.Length < 1) {
-				coindistY = 100.0f;
-			} else {
-				coindistY = (playerPos.y - coinObjs [0].transform.position.y);
-			}
-
-			if (skullObjs.Length < 1) {
-				skulldistY = 100.0f;
-
-				skulldistX = 100.0f;
-			} else {
-				skulldistY = (playerPos.y - skullObjs[0].transform.position.y);
-
-				skulldistX = (playerPos.x - skullObjs[0].transform.position.x);
-			}
-
-
-			float coindistY_Abs = Mathf.Abs (coindistY);
-			float skulldistY_Abs = Mathf.Abs (skulldistY);
-			float skulldistX_Abs = Mathf.Abs (skulldistX);
-
-			if (skulldistX_Abs < 2.0f) {
-				if (skulldistY_Abs < enoughYdist) {
-					newBullet = Instantiate (Push, gunPos, Quaternion.identity);
-					newBullet.GetComponent<Bullet> ().isPlayerBullet = transform.tag == "Player";
+		} else {
+			
+			if (coinDist < skullDist) {
+				Vector2 movetopos = new Vector2 (computerPos.x, coinpos.y);
+				transform.localPosition = Vector2.MoveTowards (transform.position, movetopos, moveSpeed);
+				if (Mathf.Abs (coinpos.y - computerPos.y) < enoughYdist ) {
+					gunPos = gameObject.transform.GetChild (0).position;
+					GameObject newBullet = Instantiate (Pull, gunPos, Quaternion.identity);
 					newBullet.GetComponent<Bullet> ().Power = ComputerPower;
-					//gameObject.GetComponent<Player_parent> ().shootok = false;
-				} else {
-					if (skulldistY < 0.0f) {
-						
-						AgentStep (5);
-					} else {
-						
-						AgentStep (6);
-					}
 				}
-				return;
 			} else {
-				/* Below is heuristic action */
-				if (Mathf.Min(coindistY_Abs ,skulldistY_Abs) > enoughYdist) {
-
-					if (skulldistY_Abs < coindistY_Abs ) {
-						if (skulldistY < 0.0f) {
-							
-							AgentStep (5);
-						} else {
-							
-							AgentStep (6);
-						}
-					} else {
-						if (coindistY < 0.0f) {
-							
-							AgentStep (5);
-						} else {
-							
-							AgentStep (6);
-						}
-					}
-				}
-
-
-				if (gameObject.GetComponent<Player_parent> ().shootok) {
-
-					gunPos = gameObject.transform.GetChild(0).position;
-					if (coindistY_Abs < skulldistY_Abs) {
-						transform.GetChild (0).GetComponent<SpriteRenderer> ().enabled = true;
-						newBullet = Instantiate (Pull, gunPos, Quaternion.identity);
-					} else {
-						newBullet = Instantiate (Push, gunPos, Quaternion.identity);
-					}
-					newBullet.GetComponent<Bullet>().isPlayerBullet = transform.name == "Player";
+				Vector2 movetopos = new Vector2 (computerPos.x, skullpos.y);
+				transform.localPosition = Vector2.MoveTowards (transform.position, movetopos, moveSpeed);
+				if (Mathf.Abs (skullpos.y - computerPos.y) < enoughYdist ) {
+					gunPos = gameObject.transform.GetChild (0).position;
+					GameObject newBullet = Instantiate (Push, gunPos, Quaternion.identity);
 					newBullet.GetComponent<Bullet> ().Power = ComputerPower;
-					//gameObject.GetComponent<Player_parent> ().shootok = false;
 				}
 
 			}
-			return;
-
 		}
+		return;
 
 	}
 
@@ -174,7 +110,7 @@ public class ComputerPlayer : MonoBehaviour {
 			CollectState ();		
 			cntFrame = 0;
 		}
-		AgentStep (3);
+		AgentStep ();
 
 
 		cntFrame ++;

@@ -13,10 +13,11 @@ TagManager:
   - front
   - DeadTarget
   - NetworkManager
-  - Enemy
   - TargetCoin
   - TargetSkull
   - Wheel
+  - Cat
+  - Dog
   layers:
   - Default
   - TransparentFX

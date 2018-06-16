@@ -9,24 +9,24 @@ public class TargetCoinAndSkull : MonoBehaviour {
 	MyGameManager mgm;
 	void OnCollisionEnter2D(Collision2D collider){
 		bool isCoin = gameObject.tag == "TargetCoin";
-		bool isPlayer = collider.gameObject.tag == "Player";
-		bool isEnemy = collider.gameObject.tag == "Enemy";
+		bool isDog = collider.gameObject.tag == "Dog";
+		bool isCat = collider.gameObject.tag == "Cat";
 		bool isBorderEnd = collider.gameObject.tag == "BorderEnd";
 		bool isBorderRight = collider.gameObject.name == "BorderRight";
-		if (isPlayer || isEnemy || isBorderEnd) {
+		if (isDog || isCat || isBorderEnd) {
 			
-			if (!isCoin && ( isPlayer || isEnemy)) {
+			if (!isCoin && ( isDog || isCat)) {
 				return;
 			}
 
-
-			if(isEnemy || collider.gameObject.name == "BorderLeft")
-				ScoreBoardtoGo = GameObject.Find ("EnemyScore").transform.localPosition;
 			/*
+			if(isCat || collider.gameObject.name == "BorderLeft")
+				ScoreBoardtoGo = GameObject.Find ("CatScore").transform.localPosition;
+			
 			isDeadTarget = true;
 			GetComponent<CircleCollider2D> ().enabled = false;
 			*/
-			mgm.ScoreCounter (isCoin, isBorderRight || isPlayer);
+			mgm.ScoreCounter (isCoin, isBorderRight || isDog);
 			//bool success = targetGen.makeTarget (isCoin);
 			
 
@@ -35,8 +35,9 @@ public class TargetCoinAndSkull : MonoBehaviour {
 			} else {
 				TakeDamage ("-1");
 			}
-			Destroy (gameObject);
 			targetGen.makeTarget (isCoin);
+			Destroy (gameObject);
+
              
 		}
 
@@ -53,7 +54,7 @@ public class TargetCoinAndSkull : MonoBehaviour {
 
 	void Start () {
 		mgm = GameObject.Find ("GameManager").GetComponent<MyGameManager> ();
-		ScoreBoardtoGo = GameObject.Find ("PlayerScore").transform.localPosition;
+		//ScoreBoardtoGo = GameObject.Find ("DogScore").transform.localPosition;
 		targetGen = GameObject.Find ("TargetGen").GetComponent<TargetGen> ();
 		FloatingTextController.Initialize();
 	}

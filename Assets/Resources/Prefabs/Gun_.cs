@@ -28,17 +28,11 @@ public class Gun_ : MonoBehaviour {
 		if (pushKeyDown) {
 			PushOrPull = false;
 			initBullet ();
-			//newBullet.transform.parent = transform.parent.transform;
-			//newBullet.GetComponent<Bullet>().isPlayerBullet = transform.name == "Player";
-			//newBullet.transform.parent = transform.parent.transform; 
 		}
 		if (pullKeyDown) {
 			PushOrPull = true;
 			initBullet ();
 			transform.GetComponent<SpriteRenderer> ().enabled = true;
-			//newBullet.transform.parent = transform.parent.transform;
-			//newBullet.GetComponent<Bullet>().isPlayerBullet = transform.name == "Player";
-			//newBullet.transform.parent = transform.parent.transform; 
 		}
 		if (pullKeyUp) {
 			transform.GetComponent<SpriteRenderer> ().enabled = false;

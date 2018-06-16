@@ -9,7 +9,6 @@ public class Player_parent : MonoBehaviour {
 	float xBorderRight = 8.2f;
 	float yBorderUp = 3.0f;
 	float yBorderDown = -4.3f;
-	public bool shootok = true;
 	// Movable for virtual pad 
 	void AnimationChange(bool isRun){
 		if (isRun) {
@@ -17,9 +16,6 @@ public class Player_parent : MonoBehaviour {
 		} else {
 			GetComponent<Animator> ().SetTrigger ("Idle");
 		}
-	}
-	bool isShootOk(){
-		return shootok;
 	}
 	protected void Movable(Vector2 deltaVec){
 		AnimationChange(deltaVec.magnitude >= 0.1f);
@@ -52,18 +48,18 @@ public class Player_parent : MonoBehaviour {
 	// Movable for keyboard
 	protected void Movable(bool left,bool right,bool up,bool down){
 		AnimationChange (left || right || up || down);
-		Vector2 playerPos = transform.localPosition; 
-		if (left&& playerPos.x > xBorderLeft) {
-			//transform.localPosition = new Vector2 (playerPos.x - moveSpeed, playerPos.y);
+		Vector2 dogPos = transform.localPosition; 
+		if (left&& dogPos.x > xBorderLeft) {
+			//transform.localPosition = new Vector2 (dogPos.x - moveSpeed, dogPos.y);
 		}
-		if (right && playerPos.x < xBorderRight) {
-			//transform.localPosition = new Vector2 (playerPos.x + moveSpeed, playerPos.y)
+		if (right && dogPos.x < xBorderRight) {
+			//transform.localPosition = new Vector2 (dogPos.x + moveSpeed, dogPos.y)
 		}
-		if (up && playerPos.y < yBorderUp) {
-			transform.localPosition = new Vector2 (playerPos.x, playerPos.y+ moveSpeed);
+		if (up && dogPos.y < yBorderUp) {
+			transform.localPosition = new Vector2 (dogPos.x, dogPos.y+ moveSpeed);
 		}
-		if (down && playerPos.y > yBorderDown) {
-			transform.localPosition = new Vector2 (playerPos.x, playerPos.y- moveSpeed);
+		if (down && dogPos.y > yBorderDown) {
+			transform.localPosition = new Vector2 (dogPos.x, dogPos.y- moveSpeed);
 		}
 
 
